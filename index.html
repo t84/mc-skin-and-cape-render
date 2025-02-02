@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin & Cape Tester</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="skinview3d.bundle.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Skin & Cape Tester</h1>
+
+        <div class="input-group">
+            <label for="skin-source">Skin Source:</label>
+            <select id="skin-source">
+                <option value="url">URL</option>
+                <option value="file">Upload File</option>
+                <option value="player">Player Name</option>
+            </select>
+        </div>
+        <div class="input-group" id="skin-url-group">
+            <label for="skin-url">Skin URL:</label>
+            <input type="text" id="skin-url" placeholder="Enter Skin URL">
+        </div>
+        <div class="input-group" id="skin-file-group" style="display: none;">
+            <label for="skin-file">Upload Skin:</label>
+            <input type="file" id="skin-file" accept="image/png">
+        </div>
+        <div class="input-group" id="skin-player-group" style="display: none;">
+            <label for="skin-player">Player Name:</label>
+            <input type="text" id="skin-player" placeholder="Enter Player Name">
+        </div>
+
+        <div class="input-group">
+            <label for="cape-source">Cape Source:</label>
+            <select id="cape-source">
+                <option value="url">URL</option>
+                <option value="file">Upload File</option>
+                <option value="player">Player Name</option>
+            </select>
+        </div>
+        <div class="input-group" id="cape-url-group">
+            <label for="cape-url">Cape URL:</label>
+            <input type="text" id="cape-url" placeholder="Enter Cape URL">
+        </div>
+        <div class="input-group" id="cape-file-group" style="display: none;">
+            <label for="cape-file">Upload Cape:</label>
+            <input type="file" id="cape-file" accept="image/png">
+        </div>
+        <div class="input-group" id="cape-player-group" style="display: none;">
+            <label for="cape-player">Player Name:</label>
+            <input type="text" id="cape-player" placeholder="Enter Player Name">
+        </div>
+        <div class="checkboxes">
+            <div class="input-group">
+                <label for="elytra-checkbox">Elytra:</label>
+                <input type="checkbox" id="elytra-checkbox">
+            </div>
+            <div class="input-group">
+                <label for="walking-checkbox">Walking:</label>
+                <input type="checkbox" id="walking-checkbox">
+            </div>
+            <div class="input-group">
+                <label for="rotate-checkbox">Rotate:</label>
+                <input type="checkbox" id="rotate-checkbox">
+            </div>
+            <div class="input-group">
+                <label for="background-checkbox">Background:</label>
+                <input type="checkbox" id="background-checkbox">
+            </div>
+        </div>
+
+        <button id="render-button">Render Skin & Cape</button>
+        <div id="viewer"></div>
+    </div>
+
+    <script src="skinview3d.bundle.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
