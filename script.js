@@ -18,16 +18,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const capeUrlGroup = document.getElementById('cape-url-group');
     const capeFileGroup = document.getElementById('cape-file-group');
     const capePlayerGroup = document.getElementById('cape-player-group');
+    const downloadButton = document.getElementById('download-button');
 
-    // Load saved settings from localStorage
     const savedSkinSource = localStorage.getItem('skinSource');
     const savedCapeSource = localStorage.getItem('capeSource');
     const savedElytraChecked = JSON.parse(localStorage.getItem('elytraChecked'));
     const savedWalkingChecked = JSON.parse(localStorage.getItem('walkingChecked'));
     const savedRotateChecked = JSON.parse(localStorage.getItem('rotateChecked'));
     const savedBackgroundChecked = JSON.parse(localStorage.getItem('backgroundChecked'));
+    
 
-    // Set the values from localStorage
     if (savedSkinSource) {
         skinSource.value = savedSkinSource;
     }
@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateSkinInputVisibility();
     updateCapeInputVisibility();
 
-    // Save dropdown selections to localStorage when they change
     skinSource.addEventListener('change', function() {
         localStorage.setItem('skinSource', skinSource.value);
         updateSkinInputVisibility();
@@ -147,9 +146,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     skin: skinUrl,
                 });
 
-                // Save options to localStorage when they change
+                
+                downloadButton.addEventListener('click', function() {
+                    console.log('Download button clicked!')
+                    const canvas = skinViewer.canvas;
+                    const dataUrl = canvas.toDataURL('image/png');
+                    
+                    const a = document.createElement('a');
+                    a.href = dataUrl;
+                    a.download = 'screenshot.png';
+                    a.click();
+                });
+
                 elytraCheckbox.addEventListener('change', function() {
-                    localStorage.setItem('elytraChecked', JSON.stringify(elytraCheckbox.checked));
                     if (elytraCheckbox.checked) {
                         skinViewer.loadCape(capeUrl, { backEquipment: "elytra" });
                     } else {
@@ -158,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 walkingCheckbox.addEventListener('change', function() {
-                    localStorage.setItem('walkingChecked', JSON.stringify(walkingCheckbox.checked));
                     if (walkingCheckbox.checked) {
                         skinViewer.animation = new skinview3d.WalkingAnimation();
                     } else {
@@ -167,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 rotateCheckbox.addEventListener('change', function() {
-                    localStorage.setItem('rotateChecked', JSON.stringify(rotateCheckbox.checked));
                     if (rotateCheckbox.checked) {
                         skinViewer.autoRotate = true;
                     } else {
@@ -176,15 +183,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 backgroundCheckbox.addEventListener('change', function() {
-                    localStorage.setItem('backgroundChecked', JSON.stringify(backgroundCheckbox.checked));
                     if (backgroundCheckbox.checked) {
                         skinViewer.loadBackground("background.png");
                     } else {
-                        skinViewer.loadBackground(null);
+                        skinViewer.background = 0x333333;
                     }
                 });
 
-                // Set the initial saved state
                 if (isElytraChecked) {
                     skinViewer.loadCape(capeUrl, { backEquipment: "elytra" });
                 } else {
@@ -206,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (isBackgroundChecked) {
                     skinViewer.loadBackground("background.png");
                 } else {
-                    skinViewer.loadBackground(null);
+                    skinViewer.background = 0x333333;
                 }
 
                 viewer.appendChild(skinViewer.canvas);
@@ -217,6 +222,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 control.enablePan = false;
 
                 console.log('Skin and Cape rendered successfully.');
+                
+
             } catch (error) {
                 console.error('Error rendering skin and cape:', error);
             }
